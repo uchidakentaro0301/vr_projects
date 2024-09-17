@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>VR Classroom with Stage and Blackboard</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+      body { margin: 0; }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <a-scene>
+      <!-- 教室の床 -->
+      <a-plane position="0 0 0" rotation="-90 0 0" width="20" height="30" color="#D3D3D3"></a-plane>
+      
+      <!-- 教室の壁 -->
+      <a-box position="0 5 -15" width="20" height="10" depth="0.1" color="#ECECEC"></a-box> <!-- 背面の壁 -->
+      <a-box position="-10 5 0" width="0.1" height="10" depth="30" color="#ECECEC"></a-box> <!-- 左の壁 -->
+      <a-box position="10 5 0" width="0.1" height="10" depth="30" color="#ECECEC"></a-box> <!-- 右の壁 -->
+      <a-box position="0 5 15" width="20" height="10" depth="0.1" color="#ECECEC"></a-box> <!-- 前面の壁 -->
+      <a-box position="0 10 0" width="20" height="0.1" depth="30" color="#ECECEC"></a-box> <!-- 天井 -->
+
+      <!-- 20個の机と椅子を配置 -->
+      <a-entity id="classroom">
+        <!-- 4列×5行の机と椅子配置 -->
+        <a-entity id="row1">
+          <a-box position="-7 0.5 -3" depth="2" width="1.5" height="0.2" color="#8B4513"></a-box>
+          <a-box position="-7 0.25 -2.5" depth="0.5" width="1" height="0.5" color="#654321"></a-box> <!-- 椅子 -->
+          <a-box position="-2 0.5 -3" depth="2" width="1.5" height="0.2" color="#8B4513"></a-box>
+          <a-box position="-2 0.25 -2.5" depth="0.5" width="1" height="0.5" color="#654321"></a-box>
+          <a-box position="3 0.5 -3" depth="2" width="1.5" height="0.2" color="#8B4513"></a-box>
+          <a-box position="3 0.25 -2.5" depth="0.5" width="1" height="0.5" color="#654321"></a-box>
+          <a-box position="8 0.5 -3" depth="2" width="1.5" height="0.2" color="#8B4513"></a-box>
+          <a-box position="8 0.25 -2.5" depth="0.5" width="1" height="0.5" color="#654321"></a-box>
+        </a-entity>
+
+        <!-- 他の列も同様に配置 -->
+        <a-entity id="row2">
+          <a-box position="-7 0.5 -6" depth="2" width="1.5" height="0.2" color="#8B4513"></a-box>
+          <a-box position="-7 0.25 -5.5" depth="0.5" width="1" height="0.5" color="#654321"></a-box>
+          <a-box position="-2 0.5 -6" depth="2" width="1.5" height="0.2" color="#8B4513"></a-box>
+          <a-box position="-2 0.25 -5.5" depth="0.5" width="1" height="0.5" color="#654321"></a-box>
+          <a-box position="3 0.5 -6" depth="2" width="1.5" height="0.2" color="#8B4513"></a-box>
+          <a-box position="3 0.25 -5.5" depth="0.5" width="1" height="0.5" color="#654321"></a-box>
+          <a-box position="8 0.5 -6" depth="2" width="1.5" height="0.2" color="#8B4513"></a-box>
+          <a-box position="8 0.25 -5.5" depth="0.5" width="1" height="0.5" color="#654321"></a-box>
+        </a-entity>
+
+        <!-- 他の行も同様に追加 -->
+
+      </a-entity>
+
+      <!-- ステージ -->
+      <a-box position="0 0.25 13" width="10" height="0.5" depth="3" color="#8B4513"></a-box> <!-- ステージ -->
+
+      <!-- 講義台 -->
+      <a-box position="0 1.25 12" width="2" height="1" depth="1" color="#654321"></a-box> <!-- 講義台 -->
+
+      <!-- 黒板 -->
+      <a-box position="0 3.5 14.9" width="8" height="4" depth="0.1" color="#2E8B57"></a-box> <!-- 黒板 -->
+
+      <!-- 空 -->
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>
+
+
+

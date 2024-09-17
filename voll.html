@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Jumping Ball VR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+    <script>
+      // カスタムコンポーネント "jump-on-click" を定義
+      AFRAME.registerComponent('jump-on-click', {
+        schema: {
+          jumpHeight: {type: 'number', default: 2}, // ジャンプの高さ
+          duration: {type: 'number', default: 1000} // ジャンプの時間
+        },
+        init: function () {
+          const el = this.el;
+          const originalPosition = el.getAttribute('position');
+          let isJumping = false;
+
+          el.addEventListener('click', () => {
+            if (!isJumping) {
+              isJumping = true;
+              this.jump(el, originalPosition, this.data.jumpHeight, this.data.duration, () => {
+                isJumping = false;
+              });
+            }
+          });
+        },
+        jump: function (el, originalPosition, jumpHeight, duration, callback) {
+          const startTime = Date.now();
+          const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const height = Math.sin(progress * Math.PI) * jumpHeight;
+            el.setAttribute('position', {
+              x: originalPosition.x,
+              y: originalPosition.y + height,
+              z: originalPosition.z
+            });
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              el.setAttribute('position', originalPosition);
+              callback();
+            }
+          };
+          requestAnimationFrame(animate);
+        }
+      });
+    </script>
+  </head>
+  
+  <body>
+    <a-scene>
+      <a-sphere id="ball" position="0 1 -5" radius="0.5" color="#EF2D5E" jump-on-click></a-sphere>
+      <a-plane position="0 0 -5" rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane>
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>
