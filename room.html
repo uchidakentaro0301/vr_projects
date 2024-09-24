@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VR教室 - A-Frame</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- 床 -->
+      <a-plane position="0 0 0" rotation="-90 0 0" width="20" height="20" color="#7BC8A4"></a-plane>
+
+      <!-- 教室の壁 -->
+      <a-box position="0 2 -10" width="20" height="5" depth="0.2" color="#fff"></a-box>
+      <a-box position="0 2 10" width="20" height="5" depth="0.2" color="#fff"></a-box>
+      <a-box position="-10 2 0" width="0.2" height="5" depth="20" color="#fff"></a-box>
+      <a-box position="10 2 0" width="0.2" height="5" depth="20" color="#fff"></a-box>
+
+      <!-- ホワイトボード -->
+      <a-box position="0 2 -9.9" width="8" height="2" depth="0.1" color="#EDEDED"></a-box>
+
+      <!-- 机と椅子の配置 -->
+      <a-entity id="classroom-layout"></a-entity>
+
+      <script>
+        // 机と椅子を並べる関数
+        function addDesksAndChairs() {
+          const classroom = document.querySelector('#classroom-layout');
+          const rows = 5;
+          const cols = 6;
+          const deskWidth = 1.2;
+          const deskDepth = 0.8;
+
+          for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+              const xPos = col * (deskWidth + 0.5) - 5;
+              const zPos = row * (deskDepth + 1) - 5;
+
+              // 机
+              const desk = document.createElement('a-box');
+              desk.setAttribute('position', `${xPos} 0.8 ${zPos}`);
+              desk.setAttribute('width', deskWidth);
+              desk.setAttribute('height', '0.1');
+              desk.setAttribute('depth', deskDepth);
+              desk.setAttribute('color', '#8B4513');
+              classroom.appendChild(desk);
+
+              // 机の足（4本）
+              for (let i = -0.5; i <= 0.5; i += 1) {
+                for (let j = -0.3; j <= 0.3; j += 0.6) {
+                  const deskLeg = document.createElement('a-cylinder');
+                  deskLeg.setAttribute('position', `${xPos + i * deskWidth / 2} 0.4 ${zPos + j * deskDepth / 2}`);
+                  deskLeg.setAttribute('radius', '0.05');
+                  deskLeg.setAttribute('height', '0.8');
+                  deskLeg.setAttribute('color', '#4B4B4B');
+                  classroom.appendChild(deskLeg);
+                }
+              }
+
+              // 椅子
+              const chairSeat = document.createElement('a-box');
+              chairSeat.setAttribute('position', `${xPos} 0.5 ${zPos - 0.9}`);
+              chairSeat.setAttribute('width', '0.8');
+              chairSeat.setAttribute('height', '0.1');
+              chairSeat.setAttribute('depth', '0.8');
+              chairSeat.setAttribute('color', '#4682B4');
+              classroom.appendChild(chairSeat);
+
+              // 椅子の足（4本）
+              for (let i = -0.3; i <= 0.3; i += 0.6) {
+                for (let j = -0.3; j <= 0.3; j += 0.6) {
+                  const chairLeg = document.createElement('a-cylinder');
+                  chairLeg.setAttribute('position', `${xPos + i * 0.4} 0.2 ${zPos - 0.9 + j * 0.4}`);
+                  chairLeg.setAttribute('radius', '0.03');
+                  chairLeg.setAttribute('height', '0.5');
+                  chairLeg.setAttribute('color', '#4B4B4B');
+                  classroom.appendChild(chairLeg);
+                }
+              }
+
+              // 椅子の背もたれ
+              const chairBack = document.createElement('a-box');
+              chairBack.setAttribute('position', `${xPos} 0.9 ${zPos - 1.25}`);
+              chairBack.setAttribute('width', '0.8');
+              chairBack.setAttribute('height', '0.5');
+              chairBack.setAttribute('depth', '0.1');
+              chairBack.setAttribute('color', '#4682B4');
+              classroom.appendChild(chairBack);
+            }
+          }
+        }
+
+        addDesksAndChairs();
+      </script>
+
+      <!-- カメラ -->
+      <a-entity camera look-controls position="0 1.6 5"></a-entity>
+    </a-scene>
+  </body>
+</html>
